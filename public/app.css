@@ -1,3 +1,44 @@
 h1{
     color:purple;
 }
+
+header{
+    text-align: center;
+}
+
+.form {
+	width: 800px;
+	margin: 50px auto 20px;
+}
+
+#todoInput {
+	width: 95%;
+}
+
+.list {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.done{
+    text-decoration: line-through;
+    color: lightslategray;
+
+}
+
+li{
+    margin-bottom: 11px;
+}
+
+li span{
+    float: right;
+    color: red;
+    transition: all 0.3s;
+    
+}
+
+li span:hover{
+    color:red;
+    font-weight:bold;
+    font-size:1.2em;
+}
