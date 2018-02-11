@@ -8,9 +8,18 @@ $(document).ready(function () {
         if(event.which == 13) {
             createTodo();
         }
-    })
- });
+    });
 
+    $('.list').on('click', 'li', function(){
+        updateTodo($(this));
+    })
+
+    // event listener on UL span
+    $('.list').on('click','span',function(e){
+        e.stopPropagation();  // stopPropagation prevents span click from affecting other click event listener on li
+        removeTodo($(this).parent());
+ });
+});
 
  //This adds all Todos to the Todo List on html page
  function addTodos(todos){
@@ -20,7 +29,9 @@ $(document).ready(function () {
  }
 
  function addTodo(todo){
-     var newTodo = $('<li>' + todo.name + ' <span>X</span></li>');
+     var newTodo = $('<li class="task">' + todo.name + ' <span>X</span></li>');
+     newTodo.data('id', todo._id);
+     newTodo.data('completed', todo.completed);
          if(todo.completed){
              newTodo.addClass("done");
          }
@@ -41,3 +52,37 @@ $(document).ready(function () {
          console.log(err);
      })
  }
+
+ function removeTodo(todo) {
+     var clickedId = todo.data('id');
+     var deleteUrl = '/api/todos/' + clickedId;
+     $.ajax({
+        method: 'DELETE',
+        url: deleteUrl
+     })
+     .then(function(data){
+         todo.remove();
+     })
+     .catch(function(err){
+         console.log(err);
+     })
+ }
+
+
+ function updateTodo(todo) {
+     var updateUrl = '/api/todos/' + todo.data('id');
+     var isDone = !todo.data('completed');
+     var updateData = {completed: isDone};
+     $.ajax({
+         method: 'PUT',
+         url: updateUrl,
+         data: updateData
+     })
+     .then(function (updatedTodo) { 
+         todo.toggleClass("done");
+         todo.data('completed', isDone);
+      })
+      .catch(function(err){
+         console.log(err);
+     })
+   }

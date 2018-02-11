@@ -1,5 +1,9 @@
 h1{
-    color:purple;
+    color:cornflowerblue;
+}
+
+body{
+    background-color: lightyellow;
 }
 
 header{
@@ -13,6 +17,10 @@ header{
 
 #todoInput {
 	width: 95%;
+    border: none;
+    outline:none;
+    font-size:2em;
+    border-bottom: 1px solid #34495e;
 }
 
 .list {
@@ -26,15 +34,24 @@ header{
 
 }
 
+.task:hover {
+	background: rgba(0, 0, 0, .06);
+	cursor: pointer;
+}
+
+.task:hover span{
+	opacity: 1;
+}
+
 li{
     margin-bottom: 11px;
 }
 
 li span{
     float: right;
-    color: red;
+    color:black;
     transition: all 0.3s;
-    
+    opacity: 0;
 }
 
 li span:hover{
